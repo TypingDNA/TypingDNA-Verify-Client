@@ -28,7 +28,7 @@ To get started with TypingDNA Verify and get a full understanding of the integra
 
 This repository contains the clients that you can use to integrate TypingDNA Verify in the backend of your application. The currently supported languages are:
 
-- [JavaScript client](/javascript/typingdna-verify-client/README.md)
+- [NodeJs client](/NodeJs/README.md)
 - [Java client](/java/TypingDNAVerifyClient/README.md)
 
 If you need support for other languages, [contact us](https://www.typingdna.com/contact.html) or check back later for updates.
