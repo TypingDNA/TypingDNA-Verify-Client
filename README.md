@@ -1,8 +1,8 @@
-# Verify API Documentation #
+# Verify Documentation #
 
 ## About TypingDNA? ##
 
-[TypingDNA](https://typingdna.com/) builds products that analyze user typing behavior to make conclusions. One application of our technology is verification of user identity for authentication purposes.
+[TypingDNA](https://www.typingdna.com/) is a new kind of biometrics that recognizes users by their unique typing patterns, powering more affordable, user-friendly authentication and behavioral analysis solutions.
 
 Our Verify and Authentication API solutions commonly replace traditional second factor authentication flows, enabling users to confirm their identity by typing -- without the additional UX friction introduced by more traditional methods.
 
