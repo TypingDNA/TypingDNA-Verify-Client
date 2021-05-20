@@ -4,7 +4,7 @@
 
 [TypingDNA](https://www.typingdna.com/) is a new kind of biometrics that recognizes users by their unique typing patterns, powering more affordable, user-friendly authentication and behavioral analysis solutions.
 
-Our Verify and Authentication API solutions commonly replace traditional second factor authentication flows, enabling users to confirm their identity by typing -- without the additional UX friction introduced by more traditional methods.
+Our Verify and Authentication API solutions commonly replace traditional second factor authentication flows, enabling users to confirm their identity by typing biometrics -- without the additional UX friction introduced by more traditional methods.
 
 ## About Verify ##
 
