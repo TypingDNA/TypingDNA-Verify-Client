@@ -22,7 +22,7 @@ Compared to our RESTful Authentication API product, Verify is less customizable 
 
 ## Getting started ##
 
-To get started with TypingDNA Verify and get a full understanding of the integration step, check our [Verify API Documentation](https://verify.typingdna.com/docs/).
+To get started with TypingDNA Verify and get a full understanding of the integration step, check our [Verify Documentation](https://verify.typingdna.com/docs/).
 
 ## Integrate the TypingDNA Verify Clients ##
 
