@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace TypingDNA
 {
@@ -117,12 +118,13 @@ namespace TypingDNA
 
         private static byte[] GenerateSecretKey(string secret, string salt)
         {
-            return new Rfc2898DeriveBytes(
-                Encoding.ASCII.GetBytes(secret),
+            return KeyDerivation.Pbkdf2(
+                secret,
                 Encoding.ASCII.GetBytes(salt),
+                KeyDerivationPrf.HMACSHA512,
                 10000,
-                HashAlgorithmName.SHA512
-            ).GetBytes(32);
+                32
+            );
         }
 
         private static byte[] DoEncrypt(string data, byte[] encryptionKey, byte[] iv)
