@@ -49,10 +49,11 @@ class TypingDNAVerifyClient {
         this.secret = secret;
     }
 
+    static VERSION = 1.1;
     static host = 'https://verify.typingdna.com';
 
     static encrypt(string, secret, salt) {
-        const encryptionKey = crypto.scryptSync(secret, salt, 32);
+        const encryptionKey = crypto.pbkdf2Sync(secret, salt, 10000, 32, 'sha512');
         const iv = crypto.randomBytes(16).toString('hex');
 
         const cipher = crypto.createCipheriv('aes-256-cbc', encryptionKey, Buffer.from(iv, 'hex'));
@@ -148,6 +149,7 @@ class TypingDNAVerifyClient {
                 clientId: this.clientId,
                 applicationId: this.applicationId,
                 payload: this.encryptPayload({ email, phoneNumber, countryCode }),
+                version: TypingDNAVerifyClient.VERSION,
                 ...data,
             }));
 

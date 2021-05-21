@@ -18,6 +18,7 @@ public class TypingDNAVerifyClient {
     @NonNull private final String clientId;
     @NonNull private final String secret;
     private final TypingDNAVerifyAPI api = TypingDNAVerifyAPI.getInstance();
+    private final float VERSION = 1.1f;
 
     public TypingDNAVerifyDataAttributes getDataAttributes(TypingDNAVerifyPayload payload) throws TypingDNAVerifyException {
         return new TypingDNAVerifyDataAttributes(clientId, applicationId, encryptPayload(payload));
@@ -51,6 +52,7 @@ public class TypingDNAVerifyClient {
         data.put("clientId", clientId);
         data.put("applicationId", applicationId);
         data.put("payload", encryptPayload(payload));
+        data.put("version", String.valueOf(VERSION));
 
         return data;
     }

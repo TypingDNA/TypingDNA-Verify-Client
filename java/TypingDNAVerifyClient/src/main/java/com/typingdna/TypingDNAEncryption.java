@@ -1,6 +1,5 @@
 package com.typingdna;
 
-import com.lambdaworks.crypto.SCrypt;
 import com.typingdna.exception.TypingDNAVerifyException;
 import lombok.val;
 
@@ -9,7 +8,9 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
@@ -19,10 +20,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 class TypingDNAEncryption {
-    private static final int COST = 16384;
-    private static final int BLOCK_SIZE = 8;
-    private static final int PARALLELIZATION = 1;
-    private static final int KEY_LENGTH = 32;
 
     public static String encrypt(String data, String secret, String salt) throws TypingDNAVerifyException {
         val encryptionKey = generateSecretKey(secret, salt);
@@ -32,15 +29,11 @@ class TypingDNAEncryption {
 
     private static SecretKey generateSecretKey(String secret, String salt) throws TypingDNAVerifyException {
         try {
-            val key = SCrypt.scrypt(
-                    secret.getBytes(StandardCharsets.UTF_8),
-                    salt.getBytes(StandardCharsets.UTF_8),
-                    COST,
-                    BLOCK_SIZE,
-                    PARALLELIZATION,
-                    KEY_LENGTH
-            );
-            return new SecretKeySpec(key, "AES");
+            val keyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+            val keySpec = new PBEKeySpec(secret.toCharArray(), salt.getBytes(StandardCharsets.UTF_8), 10000, 256);
+            val secretKey = keyFactory.generateSecret(keySpec);
+
+            return new SecretKeySpec(secretKey.getEncoded(), "AES");
         } catch (GeneralSecurityException e) {
             throw new TypingDNAVerifyException("Failed to generate the encryption key");
         }
