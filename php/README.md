@@ -11,7 +11,7 @@ Then include the __TypingDNAVerifyClient__ class and creat a client instance:
 ```php
 include('TypingDNAVerifyClient.php');
 ...
-$typingDNAVerifyClient = new TypingDNAVerifyClient(APPLICATION_ID, CLIENT_ID, SECRET);
+$typingDNAVerifyClient = new TypingDNAVerifyClient(CLIENT_ID, APPLICATION_ID, SECRET);
 ```
 
 The __CLIENT_ID__ and __SECRET__ can be found in the *Verify* dashboard of your *TypingDNA* account. The __APPLICATION_ID__ will be generated when you create a new integration. For more information see the [Initial Setup](https://verify.typingdna.com/docs#api-setup) section of the *TypingDNA Verify* documentation.
