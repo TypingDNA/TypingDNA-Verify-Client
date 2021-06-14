@@ -265,7 +265,7 @@ namespace TypingDNA
         private string email;
         private string phoneNumber;
         private string language = "EN";
-        private string mode = "standard";
+        private string flow = "STANDARD";
 
         [JsonPropertyName("email")]
         public string Email => email;
@@ -273,8 +273,8 @@ namespace TypingDNA
         public string PhoneNumber => phoneNumber;
         [JsonPropertyName("language")]
         public string Language => language;
-        [JsonPropertyName("mode")]
-        public string Mode => mode;
+        [JsonPropertyName("flow")]
+        public string Flow => flow;
 
         public TypingDNAVerifyPayload(string phoneNumber, string email)
         {
@@ -282,12 +282,12 @@ namespace TypingDNA
             this.email = email;
         }
 
-        public TypingDNAVerifyPayload(string phoneNumber, string email, string language, string mode)
+        public TypingDNAVerifyPayload(string phoneNumber, string email, string language, string flow)
         {
             this.phoneNumber = phoneNumber;
             this.email = email;
             this.language = language;
-            this.mode = mode;
+            this.flow = flow;
         }
     }
 

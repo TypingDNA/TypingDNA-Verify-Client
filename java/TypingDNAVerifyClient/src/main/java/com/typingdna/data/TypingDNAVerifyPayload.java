@@ -11,5 +11,5 @@ public class TypingDNAVerifyPayload {
     private final String email;
     private final String phoneNumber;
     private String language = "EN";
-    private String mode = "standard";
+    private String flow = "STANDARD";
 }

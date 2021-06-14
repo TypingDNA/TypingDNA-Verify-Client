@@ -6,7 +6,7 @@ class TypingDNAVerifyClient {
 
     const VERSION = 1.1;
 
-    function __construct(string $clientId, string $applicationId, string $secret) {
+    function __construct($clientId, $applicationId, $secret) {
         if (!$clientId) {
             throw new Exception('Missing client id');
         }
@@ -26,17 +26,17 @@ class TypingDNAVerifyClient {
 
     private static $host = 'https://verify.typingdna.com';
 
-    private function encrypt(string $string, string $secret, string $salt) {
+    private function encrypt($string, $secret, $salt) {
         $encryptionKey = hash_pbkdf2('sha512', $secret, $salt, 10000, 32, true);
-        $iv = random_bytes(16);
+        $iv = openssl_random_pseudo_bytes(16);
         $encrypted = openssl_encrypt($string, 'AES-256-CBC', $encryptionKey, OPENSSL_RAW_DATA, $iv);
 
         return bin2hex($encrypted) . bin2hex($iv);
     }
 
-    private function encryptPayload(array $payload) {
+    private function encryptPayload($payload) {
         $payloadArray = array();
-        $validPayloadKeys = array('email', 'phoneNumber', 'countryCode', 'language', 'mode');
+        $validPayloadKeys = array('email', 'phoneNumber', 'countryCode', 'language', 'flow');
 
         foreach ($validPayloadKeys as &$key) {
             if (isset($payload[$key])) {
@@ -49,7 +49,7 @@ class TypingDNAVerifyClient {
         return TypingDNAVerifyClient::encrypt(json_encode($payloadArray), $this->secret, $this->applicationId);
     }
 
-    public function getDataAttributes(array $payload) {
+    public function getDataAttributes($payload) {
         return array(
             'clientId' => $this->clientId,
             'applicationId' => $this->applicationId,
@@ -57,15 +57,15 @@ class TypingDNAVerifyClient {
         );
     }
 
-    public function sendOTP(array $payload) {
+    public function sendOTP($payload) {
         return $this->request('/otp/send', $payload);
     }
 
-    public function validateOTP(array $payload, string $code) {
+    public function validateOTP($payload, $code) {
         return $this->request('/otp/validate', $payload, array('code' => $code));
     }
 
-    private function request(string $path, array $payload, array $data = array()) {
+    private function request($path, $payload, $data = array()) {
         $body = array_merge(array(
             'clientId' => $this->clientId,
             'applicationId' => $this->applicationId,

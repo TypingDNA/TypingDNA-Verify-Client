@@ -1,7 +1,7 @@
 /**
  * NodeJs implementation for the TypingDNA Verify Client.
  *
- * @version 1.0
+ * @version 1.1
  *
  * @copyright TypingDNA.com, SC TypingDNA SRL
  * @license http://www.apache.org/licenses/LICENSE-2.0
@@ -47,10 +47,10 @@ class TypingDNAVerifyClient {
         this.applicationId = applicationId;
         this.clientId = clientId;
         this.secret = secret;
-    }
 
-    static VERSION = 1.1;
-    static host = 'https://verify.typingdna.com';
+        this.VERSION = 1.1;
+        this.host = 'verify.typingdna.com';
+    }
 
     static encrypt(string, secret, salt) {
         const encryptionKey = crypto.pbkdf2Sync(secret, salt, 10000, 32, 'sha512');
@@ -114,6 +114,8 @@ class TypingDNAVerifyClient {
     request(path, { email, phoneNumber, countryCode }, data = {}) {
         return new Promise((resolve, reject) => {
             const options = {
+                host: this.host,
+                path,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,7 +123,18 @@ class TypingDNAVerifyClient {
                 },
             };
 
-            const request = https.request(`${TypingDNAVerifyClient.host}${path}`, options, response => {
+            const body = {
+                clientId: this.clientId,
+                applicationId: this.applicationId,
+                payload: this.encryptPayload({ email, phoneNumber, countryCode }),
+                version: this.VERSION,
+            };
+
+            Object.keys(data).forEach(key => {
+                body[key] = data[key];
+            });
+
+            const request = https.request(options, response => {
                 let data = '';
 
                 response.on('data', chunk => {
@@ -145,14 +158,7 @@ class TypingDNAVerifyClient {
                 return reject(new Error(error.message));
             });
 
-            request.write(JSON.stringify({
-                clientId: this.clientId,
-                applicationId: this.applicationId,
-                payload: this.encryptPayload({ email, phoneNumber, countryCode }),
-                version: TypingDNAVerifyClient.VERSION,
-                ...data,
-            }));
-
+            request.write(JSON.stringify(body));
             request.end();
         });
     }

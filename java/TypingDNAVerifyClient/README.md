@@ -22,7 +22,7 @@ The __CLIENT_ID__ and __SECRET__ can be found in the *Verify* dashboard of your 
 
 Once initialized, the next step is to retrieve end-user data in the backend, for encryption and linking with the frontend button.
 
-The __getDataAttributes__ method is called to pass credentials and encrypted user data to the frontend snippet. Both the language and mode are optional parameters, defaulting to ‘EN’ and ‘standard’ respectively. Support for additional languages is in progress.
+The __getDataAttributes__ method is called to pass credentials and encrypted user data to the frontend snippet. Both the language and flow are optional parameters, defaulting to ‘EN’ and ‘STANDARD’ respectively. Support for additional languages is in progress.
 
 ```java
 TypingDNAVerifyDataAttributes typingDNADataAttributes = client.getDataAttributes(
@@ -30,7 +30,7 @@ TypingDNAVerifyDataAttributes typingDNADataAttributes = client.getDataAttributes
         "userEmail",
         "userPhoneNumberWithCountryCode",
         "EN",
-        "standard"  // "show_otp" alternatively
+        "STANDARD"  // "SHOW_OTP" alternatively
     )
 );
 ```
@@ -76,11 +76,11 @@ TypingDNASendOTPResponse response = client.sendOTP(
     - __*TypingDNASendOTPResponse* sendOTP(*payload*) throws TypingDNAVerifyException__:
         - *payload* {TypingDNAVerifyPayload}
 - __TypingDNAVerifyPayload__:
-    - __new TypingDNAVerifyPayload(*userEmail*, *userPhoneNumberWithCountryCode*, *language*, *mode*)__:
+    - __new TypingDNAVerifyPayload(*userEmail*, *userPhoneNumberWithCountryCode*, *language*, *flow*)__:
         - *userEmail* {String}
         - *userPhoneNumberWithCountryCode* {String}
         - *language* {String} - (default "EN") the language code. All the supported languages can be found in the *Verify* documentation
-        - *mode* {String} - (default "standard") "standard" or "show_otp". For more information on the diference between these two modes check the *Verify* documentation
+        - *flow* {String} - (default "STANDARD") "STANDARD" or "SHOW_OTP". For more information on the difference between these two flows check the *Verify* documentation
     - __new TypingDNAVerifyPayload(*userEmail*, *userPhoneNumberWithCountryCode*)__:
         - *userEmail* {String}
         - *userPhoneNumberWithCountryCode* {String}

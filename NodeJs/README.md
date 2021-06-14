@@ -30,14 +30,14 @@ The __CLIENT_ID__ and __SECRET__ can be found in the *Verify* dashboard of your 
 
 Once initialized, the next step is to retrieve end-user data in the backend, for encryption and linking with the frontend button.
 
-The __getDataAttributes__ method is called to pass credentials and encrypted user data to the frontend snippet. Both the language and mode are optional parameters, defaulting to ‘EN’ and ‘standard’ respectively. Support for additional languages is in progress.  
+The __getDataAttributes__ method is called to pass credentials and encrypted user data to the frontend snippet. Both the language and flow are optional parameters, defaulting to ‘EN’ and ‘STANDARD’ respectively. Support for additional languages is in progress.  
 
 ```javascript
 const typingDNADataAttributes = client.getDataAttributes({
         email: "userEmail",
         phoneNumber: "userPhoneNumberWithCountryCode",
         language: "EN",
-        mode: "standard",  // "show_otp" alternatively
+        flow: "STANDARD",  // "SHOW_OTP" alternatively
 });
 ```
 
@@ -78,7 +78,7 @@ const response = await client.sendOTP({
             - *email* {String?} - user email
             - *phoneNumber* {String?} - user phone number with country code
             - *language* {String?} - (default "EN") the language code. All the supported languages can be found in the *Verify* documentation
-            - *mode* {String?} - (default "standard") "standard" or "show_otp". For more information on the diference between these two modes check the *Verify* documentation
+            - *flow* {String?} - (default "STANDARD") "STANDARD" or "SHOW_OTP". For more information on the difference between these two flows check the *Verify* documentation
     - __*TypingDNAValidateOTPResponse* validateOTP(*config*, *code*)__:
         - *config* {Object}
         - *email* {String?} - user email
