@@ -1,7 +1,7 @@
 # TypingDNA Verify JavaScript Client
 
 ## Usage and description
-
+[TypingDNA Verify](https://www.typingdna.com/verify) helps you replace SMS 2FA codes with better UX: Just type 4 words!
 ### Initializing the client
 
 Firstly, you need to install the latest version of the client. This can be done using __npm__:  
